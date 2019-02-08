@@ -123,9 +123,7 @@ export class SigninComponent implements OnInit {
   }
 
   checkLogOut(){
-    console.log(this.showLogOut, 'before', localStorage.getItem('name'));
     this.showLogOut = localStorage.getItem('name') != null;
-    console.log(this.showLogOut, 'after');
   }
 
 }

@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.rps.turnOptions);
+
   }
 
   getValueAttribute(i: number) {

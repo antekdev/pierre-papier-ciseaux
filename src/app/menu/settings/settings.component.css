@@ -12,6 +12,7 @@
   display: grid;
   grid-template-columns: 160px 160px 160px;
   grid-template-rows: 50px;
+  margin-left: 70px;
 }
 
 .btn-secondary {

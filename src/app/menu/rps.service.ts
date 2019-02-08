@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import * as secureRandom from '../../../node_modules/secure-random';
 // @ts-ignore
-import Sha256 from "crypto-api/src/hasher/sha256";
+import Sha256 from 'crypto-api/src/hasher/sha256';
 // @ts-ignore
-import Hmac from "crypto-api/src/mac/hmac";
+import Hmac from 'crypto-api/src/mac/hmac';
 // @ts-ignore
-import {toHex} from "crypto-api/src/encoder/hex";
+import {toHex} from 'crypto-api/src/encoder/hex';
 
 export class TurnOption {
   constructor (public name: string,
@@ -21,8 +21,9 @@ export class RpsService {
 
   turnOptions: Array<TurnOption> = [];
   secretKey: string;
-  compTurn: string;
+  compTurn: number;
   usedHmac: string;
+  playersTurn: number;
 
   constructor() {
     this.turnOptions.push(new TurnOption ('rock', [1], [2]));
@@ -32,7 +33,6 @@ export class RpsService {
 
 
   confirmRename(i: number, name: string) {
-    console.log('confirming rename of', i, 'element, new name:', name);
     if (!(name == '')) this.turnOptions[i].name = name;
     // @ts-ignore
     else this.turnOptions[i].name = document.getElementById('id'+ i.toString()).value;
@@ -55,7 +55,6 @@ export class RpsService {
       }
       this.turnOptions[pos].wins.push(nextWin);
     }
-    console.log('wins for', pos, 'are', this.turnOptions[pos].wins);
     return this.turnOptions[pos].wins;
   }
 
@@ -66,13 +65,12 @@ export class RpsService {
       if ((this.turnOptions[pos].wins.includes(o)) || (o == pos)) continue;
       this.turnOptions[pos].losesTo.push(o);
     }
-    console.log(pos, 'loses to', this.turnOptions[pos].losesTo);
   }
 
   addTwoOptions() {
     let i1 = this.turnOptions.length;
-    this.turnOptions.push(new TurnOption ('element ' + i1, [], []));
     this.turnOptions.push(new TurnOption ('element ' + (i1+1), [], []));
+    this.turnOptions.push(new TurnOption ('element ' + (i1+2), [], []));
     for (let el = 0; el <= i1+1; el++) {
       this.updateWins(el);
       this.updateLosesTo(el);
@@ -136,16 +134,14 @@ export class RpsService {
   generateCompTurn() {
     let array = this.generateSecureKey(this.turnOptions.length);
     let arrayOfMax = this.max(array);
-    let turn = arrayOfMax[Math.floor(Math.random() * arrayOfMax.length)];
-    return this.turnOptions[turn].name;
+    return arrayOfMax[Math.floor(Math.random() * arrayOfMax.length)];
   }
 
   generateHmac(){
     let hasher = new Sha256(); //Md5();
     let hmac = new Hmac(this.secretKey, hasher);
-    hmac.update(this.compTurn);
-    let final = toHex(hmac.finalize());
-    return final;
+    hmac.update(this.turnOptions[this.compTurn].name);
+    return toHex(hmac.finalize());
   }
 
 }

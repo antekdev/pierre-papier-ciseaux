@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 <div class="containerBase">
-  <h2>
+  <h2 *ngIf='showOptions'>
     Make a choice!
   </h2>
   <h6>
@@ -11,11 +11,29 @@
   </h6>
 
 
-<div id="containerGameOptions">
+<div *ngIf='showOptions' id="containerGameOptions">
   <div *ngFor="let o of availableOptions; let i = index" class="{{rps.calculateHtmlPosition(i)}}">
     <button type="button" id="id{{i}}"
             class="btn btn-secondary"
-            value="{{ o.name }}">{{ getValueAttribute(i) }}</button>
+            value="{{ o.name }}"
+            (click)="playersChoice(i)">{{ getValueAttribute(i) }}</button>
   </div>
 </div>
+
+<div *ngIf='!showOptions'>
+  <h1 id="result">
+    {{result(rps.playersTurn, rps.compTurn)}}
+  </h1>
+  <hr>
+  <h2>
+    Your turn: {{rps.turnOptions[rps.playersTurn].name}} <br>
+    Computer's turn: {{rps.turnOptions[rps.compTurn].name}}
+    <hr>
+    Secret key: {{rps.secretKey}} <br>
+    <a target="_blank" rel="noopener noreferrer"
+       href="https://www.freeformatter.com/hmac-generator.html">Gauge the veracity (SHA256)</a>
+  </h2>
+  <button class="btn btn-secondary" (click)="playAgain()">Play again!</button>
+</div>
+
 </div>
