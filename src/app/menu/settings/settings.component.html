@@ -1,0 +1,24 @@
+<app-menu></app-menu>
+
+<div id="containerBase">
+    <button [disabled]="!(availableOptions.length < 16)" id="id21" type="button"
+            class="btn btn-dark" (click)="rps.addTwoOptions()">+</button>
+    <button [disabled]="!(availableOptions.length > 3)" id="id22" type="button"
+            class="btn btn-dark" (click)="rps.substractTwoOptions()">-</button>
+    <form *ngIf="renameInputShown">
+    <input class="form-control" type="text" id="id20"
+           value=""
+           placeholder="{{ availableOptions[currentlyRenaming].name }}"
+           (keyup.enter)="renameInputShown = rps.confirmRename(currentlyRenaming, getValueAttribute(20))">
+    </form>
+</div>
+<div id="containerOptions">
+  <div *ngFor="let o of availableOptions; let i = index" class="{{rps.calculateHtmlPosition(i)}}"> <!-- MIND | ASYNC PIPE FOR LATER -->
+    <button type="button" id="id{{i}}"
+            class="btn btn-secondary"
+            value="{{ o.name }}"
+            (click)="showRenameInput(i)"
+            (mouseover)="toggleColoringRelations(i, true)"
+            (mouseout)="toggleColoringRelations(i, false)">{{ getValueAttribute(i) }}</button>
+  </div>
+</div>

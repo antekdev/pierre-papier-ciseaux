@@ -1,0 +1,9 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+  <a class="navbar-brand" href="#">{{currentName}}</a>
+    <button type="button" class="btn btn-dark" (click)="navigate('play')">Play</button>
+    <button type="button" class="btn btn-dark" (click)="rps.usedHmac = ''; navigate('settings')">Settings</button>
+    <button type="button" class="btn btn-dark" (click)="logOut()">Log out</button>
+</nav>
+
+<h1>---</h1>
+<hr>

@@ -1,0 +1,36 @@
+.btn {
+  width: 150px;
+  margin: 5px;
+}
+
+.form-control {
+  width: 150px;
+  margin: 5px;
+}
+
+.containerBase {
+  width: 480px;
+  height: 50px;
+  text-align: center;
+}
+
+#containerGameOptions {
+  display: grid;
+  grid-template-columns: 160px 160px 160px;
+  grid-template-rows: 50px;
+}
+
+.btn-secondary {
+  background-color: darkslategrey;
+}
+
+#left {
+  float:left;
+}
+#middle {
+  display: inline-block;
+  margin: 0 auto;
+}
+#right {
+  float:right;
+}

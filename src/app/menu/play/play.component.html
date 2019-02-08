@@ -1,0 +1,21 @@
+<app-menu></app-menu>
+<div class="containerBase">
+  <h2>
+    Make a choice!
+  </h2>
+  <h6>
+    HMAC of the turn:
+  </h6>
+  <h6>
+    {{rps.usedHmac}}
+  </h6>
+
+
+<div id="containerGameOptions">
+  <div *ngFor="let o of availableOptions; let i = index" class="{{rps.calculateHtmlPosition(i)}}">
+    <button type="button" id="id{{i}}"
+            class="btn btn-secondary"
+            value="{{ o.name }}">{{ getValueAttribute(i) }}</button>
+  </div>
+</div>
+</div>
